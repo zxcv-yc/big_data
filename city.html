@@ -8,17 +8,19 @@
     <link rel="stylesheet" href="link/css/main.css">
     <script src="./link/js/jquery.js"></script>
     <script src="link/js/echarts.js"></script>
+    <script src="link/js/layer-v3.1.1/layer/layer.js"></script>
     <title>地级市</title>
 </head>
 
 <body>
-    <div class="bg_img">
-        <img src="images/bg1.png">
+    <div class="bg_img" style=" background: url(images/bg1.png);">
+        <!-- <img src="images/bg1.png"> -->
     </div>
     <div class="city_header">
         <img src="images/city_head.png">
         <div class="city_time"></div>
     </div>
+    <div class="now_choose_box">当前选择：<span class="now_choose"></span></div>
     <div class="city_header_r">
         <img src="images/city_head_r.png">
         <div class="header_cilck_1"></div>
@@ -86,7 +88,39 @@
                         <img src="images/title_img.png" alt="" srcset="">
                     </div>
                 </div>
-                <div id="xxx" style="height:xxx"></div>
+                <div class="table_box">
+                    <div class="table_top">
+                        <div class="table_top_item" style="margin-left:10%">位置</div>
+                        <div class="table_top_item">疫苗种类</div>
+                        <div class="table_top_item">操作</div>
+                    </div>
+                    <div class="table_content">
+                        <div class="table_content_row">
+                            <div class="red_block_box">
+                                <div class="red_block"></div>
+                            </div>
+                            <div class="table_content_item">2号冰柜</div>
+                            <div class="table_content_item">乙肝</div>
+                            <div class="table_content_item details vac_warning"><i>查看详情</i></div>
+                        </div>
+                        <div class="table_content_row">
+                            <div class="red_block_box">
+                                <div class="red_block"></div>
+                            </div>
+                            <div class="table_content_item">1号冰柜</div>
+                            <div class="table_content_item">卡介苗</div>
+                            <div class="table_content_item details vac_warning"><i>查看详情</i></div>
+                        </div>
+                        <div class="table_content_row">
+                            <div class="red_block_box">
+                                <div class="red_block"></div>
+                            </div>
+                            <div class="table_content_item">2号冰柜</div>
+                            <div class="table_content_item">脊灰灭活</div>
+                            <div class="table_content_item details vac_warning"><i>查看详情</i></div>
+                        </div>
+                    </div>
+                </div>
                 <div class="top_left">
                     <img src="images/top-left.png" alt="" srcset="">
                 </div>
@@ -128,7 +162,31 @@
                         <img src="images/title_img.png" alt="" srcset="">
                     </div>
                 </div>
-                <div id="xxx" style="height:xxx"></div>
+                <div class="table_box">
+                    <div class="table_top">
+                        <div class="table_top_item" style="margin-left:10%">冰柜</div>
+                        <div class="table_top_item">温度</div>
+                        <div class="table_top_item">操作</div>
+                    </div>
+                    <div class="table_content">
+                        <div class="table_content_row">
+                            <div class="red_block_box">
+                                <div class="red_block"></div>
+                            </div>
+                            <div class="table_content_item">2号冰柜</div>
+                            <div class="table_content_item">10.3℃</div>
+                            <div class="table_content_item details temp_warning"><i>查看详情</i></div>
+                        </div>
+                        <div class="table_content_row">
+                            <div class="red_block_box">
+                                <div class="red_block"></div>
+                            </div>
+                            <div class="table_content_item">1号冰柜</div>
+                            <div class="table_content_item">15.3℃</div>
+                            <div class="table_content_item details temp_warning"><i>查看详情</i></div>
+                        </div>
+                    </div>
+                </div>
                 <div class="top_left">
                     <img src="images/top-left.png" alt="" srcset="">
                 </div>
@@ -163,7 +221,22 @@
             var now_time = getFormatDate()
             $(".city_time").text(now_time)
         }
+        var getUrlParameter = function getUrlParameter(sParam) { //获取页面传参的值
+            var sPageURL = decodeURIComponent(window.location.search.substring(1)),
+                sURLVariables = sPageURL.split('&'),
+                sParameterName,
+                i;
 
+            for (i = 0; i < sURLVariables.length; i++) {
+                sParameterName = sURLVariables[i].split('=');
+
+                if (sParameterName[0] === sParam) {
+                    return sParameterName[1] === undefined ? true : sParameterName[1];
+                }
+            }
+        };
+        var city = getUrlParameter('city')
+        $(".now_choose").text(city)
         // 各个疫苗接种情况
         var ym_jiezhong = echarts.init(document.getElementById('ym_jiezhong'));
         option_ym_jiezhong = {
@@ -207,6 +280,9 @@
             }],
             yAxis: [{
                 type: 'value',
+                splitLine: {
+                    show: false
+                },
                 axisLabel: {
                     show: true,
                     textStyle: {
@@ -291,6 +367,9 @@
             xAxis: {
                 type: 'value',
                 boundaryGap: [0, 0.001],
+                splitLine: {
+                    show: false
+                },
                 axisLabel: {
                     show: true,
                     textStyle: {
@@ -318,13 +397,56 @@
                     name: '进',
                     type: 'bar',
                     data: [50, 60, 80, 99, 62, 60, 80, 99, 62, ],
+                    itemStyle: {
+                        emphasis: {
+                            barBorderRadius: 7
+                        },
+                        normal: {
+                            barBorderRadius: 7,
+                            color: new echarts.graphic.LinearGradient(
+                                0, 0, 1, 0,
+                                [{
+                                        offset: 0,
+                                        color: '#49fcb0'
+                                    },
+                                    {
+                                        offset: 1,
+                                        color: '#39b4ed'
+                                    }
 
+                                ]
+
+                            )
+                        }
+                    }
 
                 },
                 {
                     name: '出',
                     type: 'bar',
-                    data: [56, 77, 60, 32, 56, 77, 60, 23]
+                    data: [56, 77, 60, 32, 56, 77, 60, 23],
+                    itemStyle: {
+                        emphasis: {
+                            barBorderRadius: 7
+                        },
+                        normal: {
+                            barBorderRadius: 7,
+                            color: new echarts.graphic.LinearGradient(
+                                0, 0, 1, 0,
+                                [{
+                                        offset: 0,
+                                        color: '#fcf648'
+                                    },
+                                    {
+                                        offset: 1,
+                                        color: '#ee843a'
+                                    }
+
+                                ]
+
+                            )
+                        }
+                    }
                 }
             ]
         };
@@ -366,6 +488,9 @@
             xAxis: {
                 type: 'value',
                 boundaryGap: [0, 0.001],
+                splitLine: {
+                    show: false
+                },
                 axisLabel: {
                     show: true,
                     textStyle: {
@@ -392,13 +517,56 @@
                     name: '进',
                     type: 'bar',
                     data: [69, 99, 50, 60, 80, 99, 62, 80, ],
+                    itemStyle: {
+                        emphasis: {
+                            barBorderRadius: 7
+                        },
+                        normal: {
+                            barBorderRadius: 7,
+                            color: new echarts.graphic.LinearGradient(
+                                0, 0, 1, 0,
+                                [{
+                                        offset: 0,
+                                        color: '#49fcb0'
+                                    },
+                                    {
+                                        offset: 1,
+                                        color: '#39b4ed'
+                                    }
 
+                                ]
+
+                            )
+                        }
+                    }
 
                 },
                 {
                     name: '出',
                     type: 'bar',
-                    data: [32, 45, 56, 77, 60, 32, 32, 60]
+                    data: [32, 45, 56, 77, 60, 32, 32, 60],
+                    itemStyle: {
+                        emphasis: {
+                            barBorderRadius: 7
+                        },
+                        normal: {
+                            barBorderRadius: 7,
+                            color: new echarts.graphic.LinearGradient(
+                                0, 0, 1, 0,
+                                [{
+                                        offset: 0,
+                                        color: '#fcf648'
+                                    },
+                                    {
+                                        offset: 1,
+                                        color: '#ee843a'
+                                    }
+
+                                ]
+
+                            )
+                        }
+                    }
                 }
             ]
         };
@@ -444,7 +612,7 @@
                     textStyle: {
                         color: '#1db2f1'
                     },
-                    interval:1,
+                    interval: 1,
                 },
                 axisLine: {
                     lineStyle: {
@@ -456,12 +624,15 @@
             }],
             yAxis: [{
                 type: 'value',
+                splitLine: {
+                    show: false
+                },
                 axisLabel: {
                     show: true,
                     textStyle: {
                         color: '#1db2f1'
                     },
-                  
+
                     formatter: '{value}(支)'
                 },
             }],
@@ -502,9 +673,76 @@
                 ]
             }]
         };
-
-
         ym_chucun.setOption(option_ym_chucun);
+
+
+        // 问题疫苗警告
+        $(".vac_warning").click(function (e) {
+            var el_bro = $(this).prevAll()
+            var adderss = el_bro[1].innerText
+            var msg = el_bro[0].innerText
+            console.log(e)
+            // return false
+            layer.open({
+                type: 1,
+                area: '500px',
+                title: '详细信息',
+                btn: ['确定'],
+                btnAlign: 'c',
+                closeBtn: 1,
+                shade: [0.5, '#000'],
+                anim: 1,
+                shadeClose: true,
+                content: `<div id="layer_box">
+        <div class="layer_item">
+            <div class="layer_item_title">地址</div>
+            <div class="layer_item_content">` + adderss + `1号储藏室</div>
+        </div>
+        <div class="layer_item">
+            <div class="layer_item_title">疫苗种类</div>
+            <div class="layer_item_content">` + msg + `疫苗</div>
+        </div>
+        <div class="layer_item">
+            <div class="layer_item_title">预留信息</div>
+            <div class="layer_item_content">Lorem ipsum dolor, sit . </div>
+        </div>
+        </div>`,
+            })
+        })
+
+        // 冰箱温度警告
+        $(".temp_warning").click(function (e) {
+            var el_bro = $(this).prevAll()
+            var adderss = el_bro[1].innerText
+            var msg = el_bro[0].innerText
+            console.log(e)
+            // return false
+            layer.open({
+                type: 1,
+                title: false,
+                shade: [0.5, '#000'],
+                closeBtn: 1,
+                anim: 1,
+                area: '500px',
+                shadeClose: true,
+                skin: 'yourclass',
+                content: `<div id="layer_box" style=" background: url(images/layer_bg.png) no-repeat; background-size: 100%">
+        <div class="layer_item mar_top" >
+            <div class="layer_item_title">冰箱位置</div>
+            <div class="layer_item_content">` + adderss + `</div>
+        </div>
+        <div class="layer_item">
+            <div class="layer_item_title">报警温度</div>
+            <div class="layer_item_content">` + msg + `</div>
+        </div>
+        <div class="layer_item">
+            <div class="layer_item_title">预留信息</div>
+            <div class="layer_item_content">Lorem ipsum dolor, sit . </div>
+        </div>
+        </div>`,
+            });
+
+        })
     </script>
 </body>
 

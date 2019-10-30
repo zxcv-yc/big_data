@@ -1,0 +1,910 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="link/css/main.css">
+    <script src="./link/js/jquery.js"></script>
+    <script src="link/js/echarts.js"></script>
+    <script src="link/js/layer-v3.1.1/layer/layer.js"></script>
+    <title>首页</title>
+    <style>
+        .city_item {
+            background: url(images/city_bg.png) no-repeat;
+            background-position: center;
+            background-size: 100%;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="bg_img" style=" background: url(images/bg1.png);">
+        <!-- <img src="images/bg1.png"> -->
+    </div>
+    <div class="header">
+        <img src="images/head.png" alt="" srcset="">
+        <div class="time"></div>
+    </div>
+    <div class="content">
+        <div class="left_30">
+            <div class="item_bg" style="height:523px">
+                <a href="city.html?city=潍坊市">
+                    <div class="click_box"></div>
+                </a>
+                <div class="item_title">
+                    <div class="title_text">山东省</div>
+                    <div class="title_img">
+                        <img src="images/title_img.png" alt="" srcset="">
+                    </div>
+                </div>
+                <img src="images/map_sd.png" class="map_sd">
+                <div class="top_left">
+                    <img src="images/top-left.png" alt="" srcset="">
+                </div>
+                <div class="top_right">
+                    <img src="images/top-right.png" alt="" srcset="">
+                </div>
+                <div class="bottom-left">
+                    <img src="images/bottom-left.png" alt="" srcset="">
+                </div>
+                <div class="bottom-right">
+                    <img src="images/bottom-right.png" alt="" srcset="">
+                </div>
+            </div>
+            <div class="item_bg" style="margin-top:18px">
+                <div class="item_title">
+                    <div class="title_text">各地市接种情况</div>
+                    <div class="title_img">
+                        <img src="images/title_img.png" alt="" srcset="">
+                    </div>
+                </div>
+                <!-- <img src="images/map_sd.png" class="map_sd" > -->
+                <div id="jiezhzong" style="width:100%;height:300px"></div>
+                <div class="top_left">
+                    <img src="images/top-left.png" alt="" srcset="">
+                </div>
+                <div class="top_right">
+                    <img src="images/top-right.png" alt="" srcset="">
+                </div>
+                <div class="bottom-left">
+                    <img src="images/bottom-left.png" alt="" srcset="">
+                </div>
+                <div class="bottom-right">
+                    <img src="images/bottom-right.png" alt="" srcset="">
+                </div>
+            </div>
+        </div>
+        <div class="right_60">
+            <div class="city_box">
+                <div class="city_item margin_top_0" style="background: url(images/city_bg.png) no-repeat;     background-position: center;
+                background-size: 100%;">
+                    <!-- <div class="city_item_bg" style="background: url(images/city_bg.png);">
+                        <img src="images/city_bg.png">
+                    </div> -->
+                    <div class="city_text">
+                        <span class="font_size_40 color_purple">●</span>
+                        <span class="city_t">济南市</span>
+                    </div>
+                </div>
+                <div class="city_item margin_top_0" style="background: url(images/city_bg.png) no-repeat;     background-position: center;
+                background-size: 100%;">
+                    <div class="city_text">
+                        <span class="font_size_40 color_yellow">●</span>
+                        <span class="city_t">烟台市</span>
+                    </div>
+                </div>
+                <div class="city_item margin_top_0">
+                    <div class="city_text">
+                        <span class="font_size_40 color_pink">●</span>
+                        <span class="city_t">潍坊市</span>
+                    </div>
+                </div>
+                <div class="city_item margin_top_0">
+                    <div class="city_text">
+                        <span class="font_size_40 color_green">●</span>
+                        <span class="city_t">青岛市</span>
+                    </div>
+                </div>
+                <div class="city_item margin_top_0">
+                    <div class="city_text">
+                        <span class="font_size_40 color_blue">●</span>
+                        <span class="city_t">淄博市</span>
+                    </div>
+                </div>
+                <div class="city_item margin_top_0">
+                    <div class="city_text">
+                        <span class="font_size_40 color_yellow">●</span>
+                        <span class="city_t">枣庄市</span>
+                    </div>
+                </div>
+                <div class="city_item margin_top_0">
+                    <div class="city_text">
+                        <span class="font_size_40 color_green">●</span>
+                        <span class="city_t">泰安市</span>
+                    </div>
+                </div>
+                <div class="city_item margin_top_0">
+                    <div class="city_text">
+                        <span class="font_size_40 color_green">●</span>
+                        <span class="city_t">东营市</span>
+                    </div>
+                </div>
+                <div class="city_item margin_top_0">
+                    <div class="city_text">
+                        <span class="font_size_40 color_purple">●</span>
+                        <span class="city_t">临沂市</span>
+                    </div>
+                </div>
+                <div class="city_item">
+                    <div class="city_text">
+                        <span class="font_size_40 color_pink">●</span>
+                        <span class="city_t">济宁市</span>
+                    </div>
+                </div>
+                <div class="city_item">
+                    <div class="city_text">
+                        <span class="font_size_40 color_blue">●</span>
+                        <span class="city_t">日照市</span>
+                    </div>
+                </div>
+                <div class="city_item">
+                    <div class="city_text">
+                        <span class="font_size_40 color_purple">●</span>
+                        <span class="city_t">威海市</span>
+                    </div>
+                </div>
+                <div class="city_item">
+                    <div class="city_text">
+                        <span class="font_size_40 color_blue">●</span>
+                        <span class="city_t">菏泽市</span>
+                    </div>
+                </div>
+                <div class="city_item">
+                    <div class="city_text">
+                        <span class="font_size_40 color_yellow">●</span>
+                        <span class="city_t">滨州市</span>
+                    </div>
+                </div>
+                <div class="city_item">
+                    <div class="city_text">
+                        <span class="font_size_40 color_green">●</span>
+                        <span class="city_t">德州市</span>
+                    </div>
+                </div>
+                <div class="city_item">
+                    <div class="city_text">
+                        <span class="font_size_40 color_yellow">●</span>
+                        <span class="city_t">聊城市</span>
+                    </div>
+                </div>
+            </div>
+            <div class="right_60_leftbox">
+                <div class="item_bg" style="height:372px; overflow: hidden;" id="">
+                    <div class="item_title">
+                        <div class="title_text">疫苗出入库情况</div>
+                        <div class="title_img">
+                            <img src="images/title_img.png" alt="" srcset="">
+                        </div>
+                    </div>
+                    <div class="unit">(百支)</div>
+                    <div class="next_img">
+                        <img src="images/next.png" alt="">
+                    </div>
+                    <div class="ona_img isdisplay">
+                        <img src="images/ona.png" alt="">
+                    </div>
+                    <div id="ym_churuku_1" style="height:300px;width:90%;"></div>
+                    <div id="ym_churuku_2" style="height:300px;width:90%;"></div>
+                    <!-- <img src="images/map_sd.png" class="map_sd"> -->
+                    <div class="top_left">
+                        <img src="images/top-left.png" alt="" srcset="">
+                    </div>
+                    <div class="top_right">
+                        <img src="images/top-right.png" alt="" srcset="">
+                    </div>
+                    <div class="bottom-left">
+                        <img src="images/bottom-left.png" alt="" srcset="">
+                    </div>
+                    <div class="bottom-right">
+                        <img src="images/bottom-right.png" alt="" srcset="">
+                    </div>
+                </div>
+                <div class="item_bg" style="height:364px; margin-top: 18px;">
+                    <div class="item_title">
+                        <div class="title_text">各地市疫苗储存情况</div>
+                        <div class="title_img">
+                            <img src="images/title_img.png" alt="" srcset="">
+                        </div>
+                    </div>
+                    <!-- <img src="images/map_sd.png" class="map_sd"> -->
+                    <div id="chucun" style="width:100%;height:300px"></div>
+                    <div class="top_left">
+                        <img src="images/top-left.png" alt="" srcset="">
+                    </div>
+                    <div class="top_right">
+                        <img src="images/top-right.png" alt="" srcset="">
+                    </div>
+                    <div class="bottom-left">
+                        <img src="images/bottom-left.png" alt="" srcset="">
+                    </div>
+                    <div class="bottom-right">
+                        <img src="images/bottom-right.png" alt="" srcset="">
+                    </div>
+                </div>
+            </div>
+            <div class="right_60_rightbox">
+                <div class="item_bg" style="height:372px; " id="ym_churuku">
+                    <div class="item_title">
+                        <div class="title_text">问题疫苗警告</div>
+                        <div class="title_img">
+                            <img src="images/title_img.png" alt="" srcset="">
+                        </div>
+                    </div>
+                    <div class="table_box">
+                        <div class="table_top">
+                            <div class="table_top_item" style="margin-left:10%">地区</div>
+                            <div class="table_top_item">疫苗种类</div>
+                            <div class="table_top_item">操作</div>
+                        </div>
+                        <div class="table_content">
+                            <div class="table_content_row">
+                                <div class="red_block_box">
+                                    <div class="red_block"></div>
+                                </div>
+                                <div class="table_content_item">烟台市芝罘区</div>
+                                <div class="table_content_item">乙肝</div>
+                                <div class="table_content_item details vac_warning"><i>查看详情</i></div>
+                            </div>
+                            <div class="table_content_row">
+                                <div class="red_block_box">
+                                    <div class="red_block"></div>
+                                </div>
+                                <div class="table_content_item">济南市历下区</div>
+                                <div class="table_content_item">卡介苗</div>
+                                <div class="table_content_item details vac_warning"><i>查看详情</i></div>
+                            </div>
+                            <div class="table_content_row">
+                                <div class="red_block_box">
+                                    <div class="red_block"></div>
+                                </div>
+                                <div class="table_content_item">日照市东港区</div>
+                                <div class="table_content_item">脊灰灭活</div>
+                                <div class="table_content_item details vac_warning"><i>查看详情</i></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="top_left">
+                        <img src="images/top-left.png" alt="" srcset="">
+                    </div>
+                    <div class="top_right">
+                        <img src="images/top-right.png" alt="" srcset="">
+                    </div>
+                    <div class="bottom-left">
+                        <img src="images/bottom-left.png" alt="" srcset="">
+                    </div>
+                    <div class="bottom-right">
+                        <img src="images/bottom-right.png" alt="" srcset="">
+                    </div>
+                </div>
+                <div class="item_bg" style="height:364px; margin-top: 18px;">
+                    <div class="item_title">
+                        <div class="title_text">冰箱温度警告</div>
+                        <div class="title_img">
+                            <img src="images/title_img.png" alt="" srcset="">
+                        </div>
+                    </div>
+                    <!-- <img src="images/map_sd.png" class="map_sd"> -->
+                    <div class="table_box">
+                        <div class="table_top">
+                            <div class="table_top_item" style="margin-left:10%">地区</div>
+                            <div class="table_top_item">温度</div>
+                            <div class="table_top_item">操作</div>
+                        </div>
+                        <div class="table_content">
+                            <div class="table_content_row">
+                                <div class="red_block_box">
+                                    <div class="red_block"></div>
+                                </div>
+                                <div class="table_content_item">潍坊奎文区</div>
+                                <div class="table_content_item">10.3℃</div>
+                                <div class="table_content_item details temp_warning"><i>查看详情</i></div>
+                            </div>
+                            <div class="table_content_row">
+                                <div class="red_block_box">
+                                    <div class="red_block"></div>
+                                </div>
+                                <div class="table_content_item">济南天桥区</div>
+                                <div class="table_content_item">15.3℃</div>
+                                <div class="table_content_item details temp_warning"><i>查看详情</i></div>
+                            </div>
+                            <div class="table_content_row">
+                                <div class="red_block_box">
+                                    <div class="red_block"></div>
+                                </div>
+                                <div class="table_content_item">泰安泰山区</div>
+                                <div class="table_content_item">11.5℃</div>
+                                <div class="table_content_item details temp_warning"><i>查看详情</i></div>
+                            </div>
+                            <div class="table_content_row">
+                                <div class="red_block_box">
+                                    <div class="red_block"></div>
+                                </div>
+                                <div class="table_content_item">烟台招远市</div>
+                                <div class="table_content_item">12.7℃</div>
+                                <div class="table_content_item details temp_warning"><i>查看详情</i></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="top_left">
+                        <img src="images/top-left.png" alt="" srcset="">
+                    </div>
+                    <div class="top_right">
+                        <img src="images/top-right.png" alt="" srcset="">
+                    </div>
+                    <div class="bottom-left">
+                        <img src="images/bottom-left.png" alt="" srcset="">
+                    </div>
+                    <div class="bottom-right">
+                        <img src="images/bottom-right.png" alt="" srcset="">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        get_time() //页面打开赋值时间
+        setInterval("get_time()", 1000) //每秒刷新时间
+
+        function getFormatDate() {
+            var nowDate = new Date();
+            var year = nowDate.getFullYear();
+            var month = nowDate.getMonth() + 1 < 10 ? "0" + (nowDate.getMonth() + 1) : nowDate.getMonth() + 1;
+            var date = nowDate.getDate() < 10 ? "0" + nowDate.getDate() : nowDate.getDate();
+            var hour = nowDate.getHours() < 10 ? "0" + nowDate.getHours() : nowDate.getHours();
+            var minute = nowDate.getMinutes() < 10 ? "0" + nowDate.getMinutes() : nowDate.getMinutes();
+            var second = nowDate.getSeconds() < 10 ? "0" + nowDate.getSeconds() : nowDate.getSeconds();
+            return year + "-" + month + "-" + date + " " + hour + ":" + minute + ":" + second;
+        }
+
+        function get_time() {
+            var now_time = getFormatDate()
+            $(".time").text(now_time)
+        }
+        var msg = ['济南', '烟台', '潍坊', '青岛', '淄博', '枣庄', '泰安', '东营', '临沂', '济宁', '日照', '威海', '菏泽', '滨州', '德州', '聊城', ]
+        msg1 = msg.reverse()
+        console.log(msg1)
+        // 基于准备好的dom，初始化echarts实例
+        var myChart1 = echarts.init(document.getElementById('ym_churuku_1'));
+
+        // 指定图表的配置项和数据
+        option1 = {
+            // title: {
+            //     text: '世界人口总量',
+            //     subtext: '数据来自网络'
+            // },
+            // color: ['#40d4d2', '#f6c742', ],
+            tooltip: {
+                trigger: 'axis',
+                axisPointer: {
+                    type: 'shadow'
+                }
+            },
+            legend: {
+                data: ['进', '出'],
+                textStyle: {
+                    color: '#ffffff' //字体颜色
+                },
+
+
+            },
+            grid: {
+                left: '3%',
+                right: '4%',
+                bottom: '3%',
+                containLabel: true
+            },
+            xAxis: {
+                type: 'value',
+                boundaryGap: [0, 0.001],
+                splitLine: {
+                    show: false
+                },
+                axisLabel: {
+                    show: true,
+                    textStyle: {
+                        color: '#1db2f1'
+                    }
+                },
+
+
+            },
+            yAxis: {
+                type: 'category',
+                data: ["东营", "泰安", "枣庄", "淄博", "青岛", "潍坊", "烟台", "济南", ],
+
+
+                axisLabel: {
+                    show: true,
+                    textStyle: {
+                        color: '#1db2f1'
+                    },
+                },
+                axisLine: {
+                    lineStyle: {
+                        color: '#1db2f1',
+                    }
+                },
+
+            },
+            series: [{
+                    name: '进',
+                    type: 'bar',
+                    data: [50, 60, 80, 99, 62, 60, 80, 99, 62, ],
+                    // barWidth: 14,
+                    itemStyle: {
+                        emphasis: {
+                            barBorderRadius: 7
+                        },
+                        normal: {
+                            barBorderRadius: 7,
+                            color: new echarts.graphic.LinearGradient(
+                                0, 0, 1, 0,
+                                [{
+                                        offset: 0,
+                                        color: '#49fcb0'
+                                    },
+                                    {
+                                        offset: 1,
+                                        color: '#39b4ed'
+                                    }
+
+                                ]
+
+                            )
+                        }
+                    }
+                },
+                {
+                    name: '出',
+                    type: 'bar',
+                    data: [56, 77, 60, 32, 56, 77, 60, 23],
+                    itemStyle: {
+                        emphasis: {
+                            barBorderRadius: 7
+                        },
+                        normal: {
+                            barBorderRadius: 7,
+                            color: new echarts.graphic.LinearGradient(
+                                0, 0, 1, 0,
+                                [{
+                                        offset: 0,
+                                        color: '#fcf648'
+                                    },
+                                    {
+                                        offset: 1,
+                                        color: '#ee843a'
+                                    }
+
+                                ]
+
+                            )
+                        }
+                    }
+                }
+            ]
+        };
+        // 使用刚指定的配置项和数据显示图表。第一页
+        myChart1.setOption(option1);
+
+
+        //第二页
+        var myChart2 = echarts.init(document.getElementById('ym_churuku_2'));
+
+        // 指定图表的配置项和数据
+        option2 = {
+            // title: {
+            //     text: '世界人口总量',
+            //     subtext: '数据来自网络'
+            // },
+            color: ['#40d4d2', '#f6c742', ],
+            tooltip: {
+                trigger: 'axis',
+                axisPointer: {
+                    type: 'shadow'
+                }
+            },
+            legend: {
+                data: ['进', '出'],
+                textStyle: {
+
+                    color: '#ffffff' //字体颜色
+                },
+
+
+            },
+            grid: {
+                left: '3%',
+                right: '4%',
+                bottom: '3%',
+                containLabel: true
+            },
+            xAxis: {
+                type: 'value',
+                boundaryGap: [0, 0.001],
+                splitLine: {
+                    show: false
+                },
+                axisLabel: {
+                    show: true,
+                    textStyle: {
+                        color: '#1db2f1'
+                    }
+                }
+            },
+            yAxis: {
+                type: 'category',
+                data: ["聊城", "德州", "滨州", "菏泽", "威海", "日照", "济宁", "临沂", ],
+                axisLabel: {
+                    show: true,
+                    textStyle: {
+                        color: '#1db2f1'
+                    }
+                },
+                axisLine: {
+                    lineStyle: {
+                        color: '#1db2f1',
+                    }
+                }
+            },
+            series: [{
+                    name: '进',
+                    type: 'bar',
+                    data: [69, 99, 50, 60, 80, 99, 62, 80, ],
+                    itemStyle: {
+                        emphasis: {
+                            barBorderRadius: 7
+                        },
+                        normal: {
+                            barBorderRadius: 7,
+                            color: new echarts.graphic.LinearGradient(
+                                0, 0, 1, 0,
+                                [{
+                                        offset: 0,
+                                        color: '#49fcb0'
+                                    },
+                                    {
+                                        offset: 1,
+                                        color: '#39b4ed'
+                                    }
+
+                                ]
+
+                            )
+                        }
+                    }
+
+
+                },
+                {
+                    name: '出',
+                    type: 'bar',
+                    data: [32, 45, 56, 77, 60, 32, 32, 60],
+                    itemStyle: {
+                        emphasis: {
+                            barBorderRadius: 7
+                        },
+                        normal: {
+                            barBorderRadius: 7,
+                            color: new echarts.graphic.LinearGradient(
+                                0, 0, 1, 0,
+                                [{
+                                        offset: 0,
+                                        color: '#fcf648'
+                                    },
+                                    {
+                                        offset: 1,
+                                        color: '#ee843a'
+                                    }
+
+                                ]
+
+                            )
+                        }
+                    }
+                }
+            ]
+        };
+        // 使用刚指定的配置项和数据显示图表。
+        myChart2.setOption(option2);
+        $(document).ready(function () { //分页显示
+
+            $("#ym_churuku_2").addClass("isdisplay")
+            $(".next_img").bind('click', function () {
+                $("#ym_churuku_2,#ym_churuku_1,.next_img,.ona_img").toggleClass("isdisplay")
+            })
+            $(".ona_img").bind('click', function () {
+                $("#ym_churuku_2,#ym_churuku_1,.next_img,.ona_img").toggleClass("isdisplay")
+            })
+        })
+
+        // 各地市接种情况
+        var jiezhong = echarts.init(document.getElementById('jiezhzong'));
+        option_jiezhong = {
+            // color: ['#ec6941', '#00aaff', 'ffab4f'],
+            tooltip: {
+                trigger: 'axis',
+                axisPointer: { // 坐标轴指示器，坐标轴触发有效
+                    type: 'shadow' // 默认为直线，可选为：'line' | 'shadow'
+                }
+            },
+            grid: {
+                left: '3%',
+                right: '4%',
+                bottom: '3%',
+                containLabel: true
+            },
+            xAxis: [{
+                type: 'category',
+                data: ['济南', '烟台', '潍坊', '青岛', '淄博', '枣庄', '泰安', '东营', '临沂', '济宁', '日照', '威海', '菏泽', '滨州',
+                    '德州', '聊城',
+                ],
+                axisTick: {
+                    alignWithLabel: true
+                },
+                axisLabel: {
+                    show: true,
+                    textStyle: {
+                        color: '#1db2f1'
+                    }
+                },
+                axisLine: {
+                    lineStyle: {
+                        color: '#1db2f1',
+                        // width: 8, //这里是为了突出显示加上的
+                    }
+                }
+
+            }],
+            yAxis: [{
+                type: 'value',
+                splitLine: {
+                    show: false
+                },
+                axisLabel: {
+                    show: true,
+                    textStyle: {
+                        color: '#1db2f1'
+                    },
+
+                    formatter: '{value}(针)'
+                },
+            }],
+            series: [{
+                name: '接种数量',
+                type: 'bar',
+                barWidth: '60%',
+                itemStyle: {
+                    normal: {
+                        //每根柱子颜色设置
+                        color: function (params) {
+                            let colorList = [
+                                "#ec6941",
+                                "#00aaff",
+                                "#ffab4f",
+                                "#ec6941",
+                                "#00aaff",
+                                "#ffab4f",
+                                "#ec6941",
+                                "#00aaff",
+                                "#ffab4f",
+                                "#ec6941",
+                                "#00aaff",
+                                "#ffab4f",
+                                "#ec6941",
+                                "#00aaff",
+                                "#ffab4f",
+                                "#ec6941",
+                                "#00aaff",
+                                "#ffab4f",
+                                "#ec6941",
+                                "#00aaff",
+                                "#ffab4f",
+                                "#ec6941",
+                                "#00aaff",
+                                "#ffab4f",
+                            ];
+                            return colorList[params.dataIndex];
+                        }
+                    }
+                },
+                barWidth: 15,
+                data: [2201, 3505, 2002, 3347, 3902, 3372, 2204, 1017, 2509, 3606, 3546, 1236, 1656, 1291,
+                    2357, 1002
+                ]
+            }]
+        };
+
+
+        jiezhong.setOption(option_jiezhong);
+        // 各地市疫苗储存情况
+        var chucun = echarts.init(document.getElementById('chucun'));
+        option_chucun = {
+            // color: ['#ec6941', '#00aaff', 'ffab4f'],
+            tooltip: {
+                trigger: 'axis',
+                axisPointer: { // 坐标轴指示器，坐标轴触发有效
+                    type: 'shadow' // 默认为直线，可选为：'line' | 'shadow'
+                }
+            },
+            grid: {
+                left: '3%',
+                right: '4%',
+                bottom: '3%',
+                containLabel: true
+            },
+            xAxis: [{
+                type: 'category',
+                data: ['济南', '烟台', '潍坊', '青岛', '淄博', '枣庄', '泰安', '东营', '临沂', '济宁', '日照', '威海', '菏泽', '滨州',
+                    '德州', '聊城',
+                ],
+                axisTick: {
+                    alignWithLabel: true
+                },
+                axisLabel: {
+                    show: true,
+                    textStyle: {
+                        color: '#1db2f1'
+                    }
+                },
+                axisLine: {
+                    lineStyle: {
+                        color: '#1db2f1',
+                        // width: 8, //这里是为了突出显示加上的
+                    }
+                }
+
+            }],
+            yAxis: [{
+                type: 'value',
+                splitLine: {
+                    show: false
+                },
+                axisLabel: {
+                    show: true,
+                    textStyle: {
+                        color: '#1db2f1'
+                    },
+
+                    formatter: '{value}(支)'
+                },
+            }],
+            series: [{
+                name: '储存数量',
+                type: 'bar',
+                barWidth: '60%',
+                itemStyle: {
+                    normal: {
+                        //每根柱子颜色设置
+                        color: function (params) {
+                            let colorList = [
+                                "#e60012",
+                                "#22ac38",
+                                "#f39800",
+                                "#22ac38",
+                                "#22ac38",
+                                "#f39800",
+                                "#22ac38",
+                                "#22ac38",
+                                "#e60012",
+                                "#f39800",
+                                "#f39800",
+                                "#f39800",
+                                "#f39800",
+                                "#f39800",
+                                "#f39800",
+                                "#f39800",
+                                "#f39800",
+                            ];
+                            return colorList[params.dataIndex];
+                        }
+                    }
+                },
+                barWidth: 15,
+                data: [920, 3505, 2002, 3347, 3902, 1500, 2204, 3502, 460, 2136, 1563, 2845, 1656, 1291,
+                    2357, 2950
+                ]
+            }]
+        };
+        chucun.setOption(option_chucun);
+        // 问题疫苗警告
+        $(".vac_warning").click(function (e) {
+            var el_bro = $(this).prevAll()
+            var adderss = el_bro[1].innerText
+            var msg = el_bro[0].innerText
+            console.log(e)
+            // return false
+            layer.open({
+                type: 1,
+                area: '500px',
+                title: '详细信息',
+                btn: ['确定'],
+                btnAlign: 'c',
+                closeBtn: 1,
+                shade: [0.5, '#000'],
+                anim: 1,
+                shadeClose: true,
+                content: `<div id="layer_box">
+        <div class="layer_item">
+            <div class="layer_item_title">地址</div>
+            <div class="layer_item_content">山东省` + adderss + `xx社区接种点</div>
+        </div>
+        <div class="layer_item">
+            <div class="layer_item_title">疫苗种类</div>
+            <div class="layer_item_content">` + msg + `疫苗</div>
+        </div>
+        <div class="layer_item">
+            <div class="layer_item_title">预留信息</div>
+            <div class="layer_item_content">Lorem ipsum dolor, sit . </div>
+        </div>
+        </div>`,
+            })
+        })
+
+        // 冰箱温度警告
+        $(".temp_warning").click(function (e) {
+            var el_bro = $(this).prevAll()
+            var adderss = el_bro[1].innerText
+            var msg = el_bro[0].innerText
+            console.log(e)
+            // return false
+            layer.open({
+                type: 1,
+                area: '500px',
+                title: '详细信息',
+                btn: ['确定'],
+                btnAlign: 'c',
+                closeBtn: 1,
+                shade: [0.5, '#000'],
+                anim: 1,
+                shadeClose: true,
+                content: `<div id="layer_box">
+        <div class="layer_item">
+            <div class="layer_item_title">冰箱位置</div>
+            <div class="layer_item_content">山东省` + adderss + `xx社区接种点2号冰箱</div>
+        </div>
+        <div class="layer_item">
+            <div class="layer_item_title">报警温度</div>
+            <div class="layer_item_content">` + msg + `</div>
+        </div>
+        <div class="layer_item">
+            <div class="layer_item_title">预留信息</div>
+            <div class="layer_item_content">Lorem ipsum dolor, sit . </div>
+        </div>
+        </div>`,
+            })
+        })
+
+        $(".city_item").bind('click', function () {
+            var aa = $(this).find(".city_t").html();
+            window.location.href = 'city.html?city=' + aa
+        })
+    </script>
+    <!-- <div id="layer_box">
+        <div class="layer_item">
+            <div class="layer_item_title">地址</div>
+            <div class="layer_item_content">山东省济南市历下区xx社区接种点</div>
+        </div>
+        <div class="layer_item">
+            <div class="layer_item_title">疫苗种类</div>
+            <div class="layer_item_content">xxx疫苗</div>
+        </div>
+        <div class="layer_item">
+            <div class="layer_item_title">预留信息</div>
+            <div class="layer_item_content">Lorem ipsum dolor, sit amet consectetur adipisicing elit. </div>
+        </div>
+    </div> -->
+</body>
+
+</html>

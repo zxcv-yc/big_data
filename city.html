@@ -9,10 +9,19 @@
     <script src="./link/js/jquery.js"></script>
     <script src="link/js/echarts.js"></script>
     <script src="link/js/layer-v3.1.1/layer/layer.js"></script>
+
+    <!-- add by fjw  -->
+    <link rel="stylesheet" href="link/jq_ztree/css/zTreeStyle/zTreeStyle.css" type="text/css">
+    <link rel="stylesheet" href="link/jq_ztree/css/zTreeStyle/animate.css" type="text/css">
+    <script type="text/javascript" src="link/jq_ztree/js/jquery.ztree.core.js"></script>
+    <script type="text/javascript" src="link/jq_ztree/js/jquery.ztree.excheck.js"></script>
+    <script src="link/js/region.js"></script>
+
     <title>地级市</title>
 </head>
 
 <body>
+    <div id="fff_block"></div>
     <div class="bg_img" style=" background: url(images/bg1.png);">
         <!-- <img src="images/bg1.png"> -->
     </div>
@@ -29,7 +38,178 @@
         <div class="header_cilck_4"></div>
     </div>
     <div class="content">
-        <div class="menu"></div>
+
+        <style>
+            /* add by fjw in 19.10.31: 重写树形图样式 */
+            .tabbox {
+                width: 900px;
+                margin: 10% auto;
+                padding: 15px;
+                height: 600px;
+                background: white;
+                display: none
+            }
+
+            .tabbox li,
+            .tabbox ul {
+                list-style-type: none
+            }
+
+            .tabbox ul {
+                margin: 0;
+                padding: 0
+            }
+
+            .tabbox .tabnav,
+            .tabbox .tabcon {
+                width: 98%;
+                display: block;
+                float: left;
+            }
+
+            .tabbox .tabnav {
+                border-bottom: 1px solid #ddd
+            }
+
+            .tabbox .tabnav li {
+                position: relative;
+                cursor: pointer;
+                float: left;
+                border-top-left-radius: 5px;
+                border-top-right-radius: 5px;
+                margin: 0px;
+                padding: 8px 26px;
+                color: #337ab7;
+                border: 1px solid #fff;
+            }
+
+            .tabnav li.active {
+                border: 1px solid #ddd;
+                border-bottom: none;
+                color: #555;
+            }
+
+            .tabnav li.active:before {
+                content: '';
+                width: 100%;
+                height: 1px;
+                bottom: -2px;
+                left: 0;
+                position: absolute;
+                background: white;
+            }
+
+            .tabbox .tabcon li {
+                display: none;
+                padding: 10px;
+                width: 100%;
+                height: 540px;
+                overflow: auto;
+            }
+
+            .tabbox .tabcon li:first-child {
+                display: block
+            }
+
+            .mask {
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: rgb(212, 212, 212);
+                display: none
+            }
+
+
+            /* change by fjw  */
+            /* 位置布局 */
+            .ztree li {
+                width: 200px;
+                padding: 7px 5px 0 5px;
+            }
+
+            .ztree ul {
+                margin-left: 35px;
+            }
+
+            .ztree ul li:before {
+                border-right: 2px solid #fff;
+                background: inherit !important;
+                left: -140px;
+                border-right: none;
+            }
+
+            .ztree li .switch:before {
+                width: 0;
+                left: -56px;
+                background: inherit;
+            }
+
+            .ztree li .switch:after {
+                width: 0;
+                left: -55px;
+                background: inherit;
+            }
+
+            .ztree li span {
+                padding-left: 5px;
+                /* 所有选项向右5px */
+            }
+
+            .ztree li .level3 span {
+                padding: 0
+                    /* 最后一级不向右 */
+            }
+
+            .ztree li .addbor {
+
+                min-width: 110px;
+                border: none;
+                border-bottom: 1px solid #00ffff;
+                border-radius: 0;
+                padding: 2px 10px;
+            }
+
+            .level0 li .addbor {
+                border-bottom: 1px solid #00a0e9;
+            }
+
+            .level1 li .addbor {
+                border-bottom: 1px solid #5bd6fe;
+            }
+
+            .level2 li .addbor {
+                border-bottom: 1px solid #ec6941;
+            }
+
+            .ztree li span.button.chk {
+                display: none;
+            }
+
+            .ztree li span.button.switch {
+                width: 100%;
+            }
+
+            /* 颜色修改 */
+            .ztree>li>p,
+            .ztree>li>p~ul>li>p,
+            .ztree>li>p~ul>li>p~ul>li>p,
+            .ztree>li>p~ul>li>p~ul>li>p~ul>li>p {
+                background: inherit;
+                /* background: rgba(255,255,255, .02); */
+                /* box-shadow: 0px 0px 10px rgba(116,192,252, .5) inset; */
+            }
+
+            .selected-node {
+                background: url(link/jq_ztree/this-pos.png) no-repeat !important;
+                color: #ec6941 !important;
+            }
+        </style>
+        <div class="menu" style="height: 1000px; overflow: scroll;">
+            <!-- region 列表 add by fjw in 19.10.31 -->
+            <ul id="treeDemo" class="ztree"></ul>
+        </div>
         <div class="content_right">
             <div class="right_top">
                 <div class="item_title">
@@ -573,6 +753,13 @@
         // 使用刚指定的配置项和数据显示图表。第一页
         myChart2.setOption(option2);
         $(document).ready(function () { //分页显示
+            layer.msg("加载中", {
+                icon: 16,
+                time: 500,
+                end: function () {
+                    $("#fff_block").slideUp(500)
+                }
+            })
             $("#ym_churuku_2").addClass("isdisplay")
             $(".next_img").bind('click', function () {
                 $("#ym_churuku_2,#ym_churuku_1,.next_img,.ona_img").toggleClass("isdisplay")
@@ -685,14 +872,14 @@
             // return false
             layer.open({
                 type: 1,
-                area: '500px',
                 title: '详细信息',
-                btn: ['确定'],
-                btnAlign: 'c',
+                shade: [0.8, '#000'],
                 closeBtn: 1,
-                shade: [0.5, '#000'],
                 anim: 1,
+                scrollbar: false, //锁定浏览器滚动条
+                area: '500px',
                 shadeClose: true,
+                skin: 'yourclass',
                 content: `<div id="layer_box">
         <div class="layer_item">
             <div class="layer_item_title">地址</div>
@@ -723,7 +910,7 @@
                 shade: [0.8, '#000'],
                 closeBtn: 1,
                 anim: 1,
-                scrollbar: false,//锁定浏览器滚动条
+                scrollbar: false, //锁定浏览器滚动条
                 area: '500px',
                 shadeClose: true,
                 skin: 'yourclass',
@@ -744,6 +931,162 @@
             });
 
         })
+    </script>
+
+
+
+    <script>
+        // add by fjw in 19.10.31
+        var region_id = getUrlParameter('region_id');
+        var setting = {
+            treeObj: null,
+            check: {
+                enable: true
+            },
+            data: {
+                simpleData: {
+                    enable: true,
+                    idKey: "id",
+                    pIdKey: "pId",
+                    rootPId: 0
+                }
+            },
+            callback: {
+                onCheck: zTreeOnCheck
+            },
+            view: {
+                showLine: false,
+                showIcon: false,
+                showTitle: false,
+            }
+
+        };
+        var zNodes = getRegionTreeByID();
+
+        function getRegionTreeByID() {
+            var node = [];
+            regionTree.forEach((value, index) => {
+                var id = value['id'].toString();
+                var four = id.substr(0, 4);
+                if (region_id == four) {
+                    node.push(value);
+                }
+            });
+
+            return node;
+        }
+
+        var code;
+
+        function setCheck() {
+            var zTree = $.fn.zTree.getZTreeObj("treeDemo"),
+                type = {
+                    Y: "ps",
+                    N: "ps"
+                }
+            zTree.setting.check.chkboxType = type;
+            zTree.expandAll(true); //全部展开
+            showCode('setting.check.chkboxType = { "Y" : "' + type.Y + '", "N" : "' + type.N + '" };');
+            minejs();
+        }
+
+        function showCode(str) {
+            if (!code) code = $("#code");
+            code.empty();
+            code.append("<li>" + str + "</li>");
+        }
+
+        function zTreeOnCheck(event, treeId, treeNode) {
+            getSelectedNodes();
+        };
+
+        function getSelectedNodes() {
+            // 获取当前被勾选的节点集合
+            var treeObj = $.fn.zTree.getZTreeObj("treeDemo");
+            var nodes = treeObj.getCheckedNodes(true);
+        }
+
+        $(document).ready(function () {
+
+            console.log("ready")
+            $.fn.zTree.init($("#treeDemo"), setting, zNodes);
+            setCheck();
+            initExpandTree(); // add by fjw 
+            $("#py").bind("change", setCheck);
+            $("#sy").bind("change", setCheck);
+            $("#pn").bind("change", setCheck);
+            $("#sn").bind("change", setCheck);
+            $('.ztree li span.button.switch').click(function () {
+                minejs();
+                clickNode($(this));
+            })
+            $("#treeDemo_1>.addbor").addClass("menu_color_p");
+        });
+
+        function minejs() {
+
+        }
+
+        // 只展开根节点
+        function initExpandTree() {
+            var tree = $.fn.zTree.getZTreeObj('treeDemo');
+            //获取 zTree 的全部节点数据将节点数据转换为简单 Array 格式
+            var nodes = tree.transformToArray(tree.getNodes());
+            var length = nodes.length;
+            for (var i = 0; i < length; i++) {
+                if (nodes[i].level == 0) {
+                    //根节点展开
+                    tree.expandNode(nodes[i], true, true, false)
+                } else {
+                    tree.expandNode(nodes[i], false, true, false)
+                }
+            }
+        }
+
+        // 点击节点
+        function clickNode(dom) {
+            // tree节点选中样式
+            $('.ztree li .addbor').removeClass('selected-node');
+            // 点击地级市
+            if (dom.hasClass('level0')) {
+                dom.parent().toggleClass('menu_color_p')
+                // function name 
+            }
+            // 点击区县
+            if (dom.hasClass('level1')) {
+                dom.parent().toggleClass('menu_color_c')
+                // function name 
+                ym_chucun.clear()
+                ym_chucun.setOption(option_ym_chucun, true);
+
+                ym_jiezhong.clear()
+                ym_jiezhong.setOption(option_ym_jiezhong);
+
+                myChart1.clear()
+                myChart1.setOption(option1);
+            }
+            // 点击接种点类型
+            if (dom.hasClass('level2')) {
+                dom.parent().toggleClass('menu_color_a')
+                // function name 
+            }
+            // 点击接种点
+            if (dom.hasClass('level3')) {
+                dom.parent().addClass('selected-node ');
+
+                // myChart.clear()
+                // myChart.setOption(option, true)
+                ym_chucun.clear()
+                ym_chucun.setOption(option_ym_chucun, true);
+
+                ym_jiezhong.clear()
+                ym_jiezhong.setOption(option_ym_jiezhong);
+
+                myChart1.clear()
+                myChart1.setOption(option1);
+            }
+
+        };
     </script>
 </body>
 

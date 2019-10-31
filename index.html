@@ -13,6 +13,7 @@
 </head>
 
 <body>
+    <div id="fff_block"></div>
     <div class="bg_img" style=" background: url(images/login_bg.png);">
         <!-- <img src="images/bg1.png"> -->
     </div>
@@ -42,6 +43,15 @@
     <script>
         var user = '';
         var password = '';
+        $(document).ready(function () {
+            layer.msg("加载中", {
+                icon: 16,
+                time: 500,
+                end: function () {
+                    $("#fff_block").slideUp(500)
+                }
+            })
+        })
         $('.big_box :input').bind('input propertychange', function () {
             user = $("#user_name").val()
             password = $("#password").val()

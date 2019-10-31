@@ -719,14 +719,15 @@
             // return false
             layer.open({
                 type: 1,
-                title: false,
-                shade: [0.5, '#000'],
+                title: '详细信息',
+                shade: [0.8, '#000'],
                 closeBtn: 1,
                 anim: 1,
+                scrollbar: false,//锁定浏览器滚动条
                 area: '500px',
                 shadeClose: true,
                 skin: 'yourclass',
-                content: `<div id="layer_box" style=" background: url(images/layer_bg.png) no-repeat; background-size: 100%">
+                content: `<div id="layer_box">
         <div class="layer_item mar_top" >
             <div class="layer_item_title">冰箱位置</div>
             <div class="layer_item_content">` + adderss + `</div>

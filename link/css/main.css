@@ -98,6 +98,9 @@ body {
     position: absolute;
 }
 
+#shandong{
+    height: 523px;
+}
 .top_left {
     top: -4px;
     left: 0;
@@ -480,8 +483,10 @@ body {
 #layer_box {
     /* background-color: #000; */
     padding: 30px;
-    color: #5aedfb;
-    background-color: rgb(78, 78, 78);
+    color: #f1f1f1;
+    /* color: #2aaef2; */
+    /* background-color: #061e35; */
+    background-image: radial-gradient(#05335e,#061e35  );
 }
 
 .layer_item {
@@ -507,6 +512,11 @@ body {
 .layer_item_content {
     float: left;
 }
+/* .layui-layer .layui-layer-title{
+    background-color: #272727;
+    color: #f1f1f1;
+    border: none
+} */
 
 
 

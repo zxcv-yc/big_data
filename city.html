@@ -25,16 +25,21 @@
     <div class="bg_img" style=" background: url(images/bg1.png);">
         <!-- <img src="images/bg1.png"> -->
     </div>
+
     <div class="city_header">
+
         <img src="images/city_head.png">
         <div class="city_time"></div>
     </div>
     <div class="now_choose_box">当前选择：<span class="now_choose"></span></div>
     <div class="city_header_r">
         <img src="images/city_head_r.png">
-        <a href="http://fake.mamitianshi.com/Imitatecall/index">
+        <a href="distribution.html">
             <div class="header_cilck_1"></div>
         </a>
+        <!-- <a href="http://fake.mamitianshi.com/Imitatecall/index">
+            <div class="header_cilck_1"></div>
+        </a> -->
         <a href="http://fake.mamitianshi.com/Imitateregist/index">
             <div class="header_cilck_2"></div>
         </a>
@@ -44,9 +49,9 @@
         <a href="http://fake.mamitianshi.com/Imitatefridge/index">
             <div class="header_cilck_4"></div>
         </a>
-        
-        
-        
+
+
+
     </div>
     <div class="content">
 
@@ -218,13 +223,16 @@
             }
         </style>
         <div class="menu" style="height: 1000px; overflow: scroll;">
+            <div id="back">
+                <img src="images/back.png" alt="">
+            </div>
             <!-- region 列表 add by fjw in 19.10.31 -->
             <ul id="treeDemo" class="ztree"></ul>
         </div>
         <div class="content_right">
             <div class="right_top">
                 <div class="item_title">
-                    <div class="title_text">接种点各疫苗接种情况</div>
+                    <div class="title_text">今日全市疫苗接种情况汇总</div>
                     <div class="title_img">
                         <img src="images/title_img.png" alt="" srcset="">
                     </div>
@@ -245,7 +253,7 @@
             </div>
             <div class="right_item">
                 <div class="item_title">
-                    <div class="title_text">各疫苗出入库情况</div>
+                    <div class="title_text">今日疫苗接种(I、II类)情况汇总</div>
                     <div class="title_img">
                         <img src="images/title_img.png" alt="" srcset="">
                     </div>
@@ -327,7 +335,7 @@
             </div>
             <div class="right_item">
                 <div class="item_title">
-                    <div class="title_text">接种点各疫苗存储情况</div>
+                    <div class="title_text" id="chucun_title">各区县疫苗储存情况</div>
                     <div class="title_img">
                         <img src="images/title_img.png" alt="" srcset="">
                     </div>
@@ -427,103 +435,11 @@
             }
         };
         var city = getUrlParameter('city')
+        // console.log(zNodes)
+
         $(".now_choose").text(city)
-        // 各个疫苗接种情况
-        var ym_jiezhong = echarts.init(document.getElementById('ym_jiezhong'));
-        option_ym_jiezhong = {
-            // color: ['#ec6941', '#00aaff', 'ffab4f'],
-            tooltip: {
-                trigger: 'axis',
-                axisPointer: { // 坐标轴指示器，坐标轴触发有效
-                    type: 'shadow' // 默认为直线，可选为：'line' | 'shadow'
-                }
-            },
-            grid: {
-                left: '3%',
-                right: '4%',
-                bottom: '3%',
-                top: '4%',
-                containLabel: true
-            },
-            xAxis: [{
-                type: 'category',
+        document.title = city+"--山东省疾控大数据监测控制平台"
 
-                data: ['乙肝', '卡介苗', '脊灰灭活', '脊灰减毒活', '百白破', '白破', '麻风', '麻腮风', '乙脑减毒活', 'A+C群流脑结合',
-                    'A+C群流脑多糖', '甲肝减毒活',
-                ],
-                axisTick: {
-                    alignWithLabel: true
-                },
-                axisLabel: {
-                    show: true,
-                    interval: 0, //强制显示所有疫苗名称  1：间隔显示
-                    textStyle: {
-                        color: '#1db2f1'
-                    }
-                },
-                axisLine: {
-                    lineStyle: {
-                        color: '#1db2f1',
-                        // width: 8, //这里是为了突出显示加上的
-                    }
-                }
-
-            }],
-            yAxis: [{
-                type: 'value',
-                splitLine: {
-                    show: false
-                },
-                axisLabel: {
-                    show: true,
-                    textStyle: {
-                        color: '#1db2f1'
-                    },
-
-                    formatter: '{value}(针)'
-                },
-            }],
-            series: [{
-                name: '接种数量',
-                type: 'bar',
-                barWidth: '60%',
-                itemStyle: {
-                    normal: {
-                        //每根柱子颜色设置
-                        color: function (params) {
-                            let colorList = [
-                                "#ec6941",
-                                "#00aaff",
-                                "#ffab4f",
-                                "#ec6941",
-                                "#00aaff",
-                                "#ffab4f",
-                                "#ec6941",
-                                "#00aaff",
-                                "#ffab4f",
-                                "#ec6941",
-                                "#00aaff",
-                                "#ffab4f",
-                                "#ec6941",
-                                "#00aaff",
-                                "#ffab4f",
-                                "#ec6941",
-                                "#00aaff",
-                                "#ffab4f",
-                                "#ec6941",
-                            ];
-                            return colorList[params.dataIndex];
-                        }
-                    }
-                },
-                barWidth: 15,
-                data: [92, 355, 202, 347, 302, 150, 204, 302, 40, 236,
-                    237, 290
-                ]
-            }]
-        };
-
-        ym_jiezhong.setOption(option_ym_jiezhong);
 
         // 各个疫苗出入库情况  第一页
         var myChart1 = echarts.init(document.getElementById('ym_churuku_1'));
@@ -542,7 +458,7 @@
                 }
             },
             legend: {
-                data: ['进', '出'],
+                data: ['I类疫苗'],
                 textStyle: {
                     color: '#ffffff' //字体颜色
                 },
@@ -571,7 +487,9 @@
             },
             yAxis: {
                 type: 'category',
-                data: ['乙肝', '卡介苗', '脊灰灭活', '脊灰减毒活', '百白破', '白破', ],
+                data: ['乙肝', '卡介苗', '脊灰灭活', '脊灰减毒活', '百白破', '白破', '麻风', '麻腮风', '乙脑减毒活', 'A+C群流脑结合', 'A+C群流脑多糖',
+                    '甲肝减毒活'
+                ],
                 axisLabel: {
                     show: true,
                     textStyle: {
@@ -585,15 +503,15 @@
                 }
             },
             series: [{
-                    name: '进',
+                    name: 'I类疫苗',
                     type: 'bar',
-                    data: [50, 60, 80, 99, 62, 60, 80, 99, 62, ],
+                    data: [502, 603, 830, 909, 692, 680, 890, 997, 620, 997, 509, 607, 834, 939, 682, 830],
                     itemStyle: {
                         emphasis: {
                             barBorderRadius: 7
                         },
                         normal: {
-                            barBorderRadius: 7,
+                            barBorderRadius: 99,
                             color: new echarts.graphic.LinearGradient(
                                 0, 0, 1, 0,
                                 [{
@@ -612,33 +530,7 @@
                     }
 
                 },
-                {
-                    name: '出',
-                    type: 'bar',
-                    data: [56, 77, 60, 32, 56, 77, 60, 23],
-                    itemStyle: {
-                        emphasis: {
-                            barBorderRadius: 7
-                        },
-                        normal: {
-                            barBorderRadius: 7,
-                            color: new echarts.graphic.LinearGradient(
-                                0, 0, 1, 0,
-                                [{
-                                        offset: 0,
-                                        color: '#fcf648'
-                                    },
-                                    {
-                                        offset: 1,
-                                        color: '#ee843a'
-                                    }
 
-                                ]
-
-                            )
-                        }
-                    }
-                }
             ]
         };
         // 使用刚指定的配置项和数据显示图表。第一页
@@ -662,7 +554,7 @@
                 }
             },
             legend: {
-                data: ['进', '出'],
+                data: ["II类疫苗"],
                 textStyle: {
 
                     color: '#ffffff' //字体颜色
@@ -691,7 +583,7 @@
             },
             yAxis: {
                 type: 'category',
-                data: ['麻风', '麻腮风', '乙脑减毒活', 'A+C群流脑结合', 'A+C群流脑多糖', '甲肝减毒活', ],
+                data: ['甲肝疫苗', 'HIB疫苗', '流感疫苗', '狂犬病疫苗', '轮状病毒疫苗'],
                 axisLabel: {
                     show: true,
                     textStyle: {
@@ -704,44 +596,19 @@
                     }
                 }
             },
-            series: [{
-                    name: '进',
-                    type: 'bar',
-                    data: [69, 99, 50, 60, 80, 99, 62, 80, ],
-                    itemStyle: {
-                        emphasis: {
-                            barBorderRadius: 7
-                        },
-                        normal: {
-                            barBorderRadius: 7,
-                            color: new echarts.graphic.LinearGradient(
-                                0, 0, 1, 0,
-                                [{
-                                        offset: 0,
-                                        color: '#49fcb0'
-                                    },
-                                    {
-                                        offset: 1,
-                                        color: '#39b4ed'
-                                    }
+            series: [
 
-                                ]
-
-                            )
-                        }
-                    }
-
-                },
                 {
-                    name: '出',
+                    name: 'II类疫苗',
                     type: 'bar',
-                    data: [32, 45, 56, 77, 60, 32, 32, 60],
+                    data: [302, 239, 269, 246, 299],
+                    barWidth: 18,
                     itemStyle: {
                         emphasis: {
                             barBorderRadius: 7
                         },
                         normal: {
-                            barBorderRadius: 7,
+                            barBorderRadius: 99,
                             color: new echarts.graphic.LinearGradient(
                                 0, 0, 1, 0,
                                 [{
@@ -768,7 +635,11 @@
                 icon: 16,
                 time: 500,
                 end: function () {
-                    $("#fff_block").slideUp(500)
+                    $("#fff_block").slideUp(500);
+                    layer.tips('点击查看II类疫苗', '.next_img', {
+                        tips: [1, '#fa7116']
+                        // tips: [1, '#78BA32']
+                    });
                 }
             })
             $("#ym_churuku_2").addClass("isdisplay")
@@ -781,99 +652,10 @@
         })
 
 
-        // 各个疫苗储存情况
-        var ym_chucun = echarts.init(document.getElementById('ym_chucun'));
-        option_ym_chucun = {
-            // color: ['#ec6941', '#00aaff', 'ffab4f'],
-            tooltip: {
-                trigger: 'axis',
-                axisPointer: { // 坐标轴指示器，坐标轴触发有效
-                    type: 'shadow' // 默认为直线，可选为：'line' | 'shadow'
-                }
-            },
-            grid: {
-                left: '3%',
-                right: '4%',
-                bottom: '3%',
-                containLabel: true
-            },
-            xAxis: [{
-                type: 'category',
-                data: ['乙肝', '卡介苗', '脊灰灭活', '脊灰减毒活', '百白破', '白破', '麻风', '麻腮风', '乙脑减毒活', 'A+C群流脑结合',
-                    'A+C群流脑多糖', '甲肝减毒活',
-                ],
-                axisTick: {
-                    alignWithLabel: true
-                },
-                axisLabel: {
-                    show: true,
-                    textStyle: {
-                        color: '#1db2f1'
-                    },
-                    interval: 1,
-                },
-                axisLine: {
-                    lineStyle: {
-                        color: '#1db2f1',
-                        // width: 8, //这里是为了突出显示加上的
-                    }
-                }
-
-            }],
-            yAxis: [{
-                type: 'value',
-                splitLine: {
-                    show: false
-                },
-                axisLabel: {
-                    show: true,
-                    textStyle: {
-                        color: '#1db2f1'
-                    },
-
-                    formatter: '{value}(支)'
-                },
-            }],
-            series: [{
-                name: '储存数量',
-                type: 'bar',
-                barWidth: '60%',
-                itemStyle: {
-                    normal: {
-                        //每根柱子颜色设置
-                        color: function (params) {
-                            let colorList = [
-                                "#e60012",
-                                "#22ac38",
-                                "#f39800",
-                                "#22ac38",
-                                "#22ac38",
-                                "#f39800",
-                                "#22ac38",
-                                "#22ac38",
-                                "#e60012",
-                                "#f39800",
-                                "#f39800",
-                                "#f39800",
-                                "#f39800",
-                                "#f39800",
-                                "#f39800",
-                                "#f39800",
-                                "#f39800",
-                            ];
-                            return colorList[params.dataIndex];
-                        }
-                    }
-                },
-                barWidth: 15,
-                data: [920, 3505, 2002, 3347, 3902, 1500, 2204, 3502, 460, 2136, 1563, 2845, 1656, 1291,
-                    2357, 2950
-                ]
-            }]
-        };
-        ym_chucun.setOption(option_ym_chucun);
 
 
+
+        // 问题疫苗警告
         // 问题疫苗警告
         $(".vac_warning").click(function (e) {
             var el_bro = $(this).prevAll()
@@ -892,20 +674,71 @@
                 shadeClose: true,
                 skin: 'yourclass',
                 content: `<div id="layer_box">
+                        <div class="layer_item">
+            <div class="layer_item_title">
+                <label class="switch" id="switch">
+                    <input type="checkbox" >
+                    <div class="slider round"></div>
+                </label>
+            </div>
+            <div class="layer_item_content">是否开启一键锁定</div>
+        </div>
         <div class="layer_item">
             <div class="layer_item_title">地址</div>
-            <div class="layer_item_content">` + adderss + `1号储藏室</div>
+            <div class="layer_item_content">` + adderss + `xx社区接种点</div>
         </div>
         <div class="layer_item">
             <div class="layer_item_title">疫苗种类</div>
-            <div class="layer_item_content">` + msg + `疫苗</div>
+            <div class="layer_item_content">` + msg + `</div>
         </div>
         <div class="layer_item">
-            <div class="layer_item_title">预留信息</div>
-            <div class="layer_item_content">Lorem ipsum dolor, sit . </div>
+            <div class="layer_item_title">情况报告</div>
+            <div class="layer_item_content">疫苗过期，活性失效</div>
         </div>
-        </div>`,
+        <div class="layer_item">
+            <div class="layer_item_title">报告人</div>
+            <div class="layer_item_content"> 王富贵</div>
+        </div>
+        <div class="layer_item">
+            <div class="layer_item_title">联系电话</div>
+            <div class="layer_item_content"> 15080808080</div>
+        </div>
+        <div class="layer_item">
+            <div class="layer_item_title">上级负责人</div>
+            <div class="layer_item_content"> 王一川</div>
+        </div>
+        <div class="layer_item">
+            <div class="layer_item_title">联系电话</div>
+            <div class="layer_item_content"> 15092999999</div>
+        </div>
+        <div class="layer_item">
+            <div class="layer_item_title">处理情况</div>
+            <div class="layer_item_content"> 已记录并销毁疫苗</div>
+        </div>
+    </div>`,
             })
+        })
+
+
+        $(document).on("click", "#switch > .slider", function () {
+            var flag = $("#switch > input").is(":checked");
+            console.log(flag)
+            if (!flag) {
+                layer.msg("一键锁定已开启", {
+                    icon: 1,
+                    time: 1500,
+                    end: function () {}
+                })
+            } else {
+                layer.msg("一键锁定已关闭", {
+                    icon: 2,
+                    time: 1500,
+                    end: function () {}
+                })
+            }
+        });
+        $("#back > img").click(function () {
+            window.location.href = 'province.html'
         })
 
         // 冰箱温度警告
@@ -926,21 +759,28 @@
                 shadeClose: true,
                 skin: 'yourclass',
                 content: `<div id="layer_box">
-        <div class="layer_item mar_top" >
+        <div class="layer_item">
             <div class="layer_item_title">冰箱位置</div>
-            <div class="layer_item_content">` + adderss + `</div>
+            <div class="layer_item_content">xx接种点` + adderss + `</div>
         </div>
         <div class="layer_item">
             <div class="layer_item_title">报警温度</div>
             <div class="layer_item_content">` + msg + `</div>
         </div>
         <div class="layer_item">
-            <div class="layer_item_title">预留信息</div>
-            <div class="layer_item_content">Lorem ipsum dolor, sit . </div>
+            <div class="layer_item_title">负责人信息</div>
+            <div class="layer_item_content">王富贵,15008060301,` + adderss + `xx社区接种点</div>
+        </div>
+        <div class="layer_item">
+            <div class="layer_item_title">情况描述</div>
+            <div class="layer_item_content">冰箱温度报警，温度达到` + msg + `</div>
+        </div>
+        <div class="layer_item">
+            <div class="layer_item_title">处理反馈</div>
+            <div class="layer_item_content">已处理完毕</div>
         </div>
         </div>`,
-            });
-
+            })
         })
     </script>
 
@@ -1053,7 +893,396 @@
                 }
             }
         }
+        console.log(zNodes)
 
+        // 遍历节点数组，取出县级单位name  YC
+        var traverseArea = function (arr) {
+            var area = []
+            for (var i = 0; i < arr.length; i++) {
+                // console.log(arr[i].id.toString().length)
+                if (arr[i].id.toString().length === 6) {
+                    area.push(arr[i].name)
+                }
+            }
+            return area
+        }
+        var area = traverseArea(zNodes)
+
+        // 各个疫苗接种情况  
+        var ym_jiezhong = echarts.init(document.getElementById('ym_jiezhong'));
+        option_ym_jiezhong = {
+            // color: ['#ec6941', '#00aaff', 'ffab4f'],
+            tooltip: {
+                trigger: 'axis',
+                axisPointer: { // 坐标轴指示器，坐标轴触发有效
+                    type: 'shadow' // 默认为直线，可选为：'line' | 'shadow'
+                }
+            },
+            grid: {
+                left: '3%',
+                right: '4%',
+                bottom: '3%',
+                top: '4%',
+                containLabel: true
+            },
+            xAxis: [{
+                type: 'category',
+
+                data: area,
+                axisTick: {
+                    alignWithLabel: true
+                },
+                axisLabel: {
+                    show: true,
+                    interval: 0, //强制显示所有疫苗名称  1：间隔显示
+                    textStyle: {
+                        color: '#1db2f1'
+                    },
+                    // interval: 0,
+                    // rotate: 40
+                },
+                axisLine: {
+                    lineStyle: {
+                        color: '#1db2f1',
+                        // width: 8, //这里是为了突出显示加上的
+                    }
+                }
+
+            }],
+            yAxis: [{
+                type: 'value',
+                splitLine: {
+                    show: false
+                },
+                axisLabel: {
+                    show: true,
+                    textStyle: {
+                        color: '#1db2f1'
+                    },
+
+                    formatter: '{value}(针)',
+
+                },
+            }],
+            series: [{
+                name: '接种数量',
+                type: 'bar',
+                barWidth: '60%',
+                itemStyle: {
+                    normal: {
+                        //每根柱子颜色设置
+                        color: function (params) {
+                            let colorList = [
+                                "#ec6941",
+                                "#00aaff",
+                                "#ffab4f",
+                                "#ec6941",
+                                "#00aaff",
+                                "#ffab4f",
+                                "#ec6941",
+                                "#00aaff",
+                                "#ffab4f",
+                                "#ec6941",
+                                "#00aaff",
+                                "#ffab4f",
+                                "#ec6941",
+                                "#00aaff",
+                                "#ffab4f",
+                                "#ec6941",
+                                "#00aaff",
+                                "#ffab4f",
+                                "#ec6941",
+                            ];
+                            return colorList[params.dataIndex];
+                        }
+                    }
+                },
+                barWidth: 15,
+                data: [92, 355, 202, 347, 302, 150, 204, 302, 40, 236,
+                    237, 290
+                ]
+            }]
+        };
+        ym_jiezhong.setOption(option_ym_jiezhong);
+
+        // 各个疫苗储存情况
+        var ym_chucun = echarts.init(document.getElementById('ym_chucun'));
+        option_ym_chucun = {
+            // color: ['#ec6941', '#00aaff', 'ffab4f'],
+            tooltip: {
+                trigger: 'axis',
+                axisPointer: { // 坐标轴指示器，坐标轴触发有效
+                    type: 'shadow' // 默认为直线，可选为：'line' | 'shadow'
+                }
+            },
+            grid: {
+                left: '3%',
+                right: '4%',
+                bottom: '3%',
+                containLabel: true
+            },
+            xAxis: [{
+                type: 'category',
+                data: area,
+                axisTick: {
+                    alignWithLabel: true
+                },
+                axisLabel: {
+                    show: true,
+                    textStyle: {
+                        color: '#1db2f1'
+                    },
+                    // interval: 1,
+                    interval: 0,
+                    rotate: 40
+                },
+                axisLine: {
+                    lineStyle: {
+                        color: '#1db2f1',
+                        // width: 8, //这里是为了突出显示加上的
+                    }
+                }
+
+            }],
+            yAxis: [{
+                type: 'value',
+                splitLine: {
+                    show: false
+                },
+                axisLabel: {
+                    show: true,
+                    textStyle: {
+                        color: '#1db2f1'
+                    },
+
+                    formatter: '{value}(支)'
+                },
+            }],
+            series: [{
+                name: '储存数量',
+                type: 'bar',
+                barWidth: '60%',
+                itemStyle: {
+                    normal: {
+                        //每根柱子颜色设置
+                        color: function (params) {
+                            let colorList = [
+                                "#e60012",
+                                "#22ac38",
+                                "#f39800",
+                                "#22ac38",
+                                "#22ac38",
+                                "#f39800",
+                                "#22ac38",
+                                "#22ac38",
+                                "#e60012",
+                                "#f39800",
+                                "#f39800",
+                                "#f39800",
+                                "#f39800",
+                                "#f39800",
+                                "#f39800",
+                                "#f39800",
+                                "#f39800",
+                            ];
+                            return colorList[params.dataIndex];
+                        }
+                    }
+                },
+                barWidth: 15,
+                data: [2693, 3505, 2002, 3347, 3902, 1500, 2204, 3502, 460, 2136, 1563, 2845, 1656, 1291,
+                    2357, 2950
+                ]
+            }]
+        };
+        ym_chucun.setOption(option_ym_chucun);
+        // 各个疫苗储存情况_area
+        // var ym_chucun = echarts.init(document.getElementById('ym_chucun'));
+        option_ym_chucun_area = {
+            // color: ['#ec6941', '#00aaff', 'ffab4f'],
+            tooltip: {
+                trigger: 'axis',
+                axisPointer: { // 坐标轴指示器，坐标轴触发有效
+                    type: 'shadow' // 默认为直线，可选为：'line' | 'shadow'
+                }
+            },
+            grid: {
+                left: '3%',
+                right: '4%',
+                bottom: '3%',
+                containLabel: true
+            },
+            xAxis: [{
+                type: 'category',
+                data: ['医院接种点A', '医院接种点B', '医院接种点C', '医院接种点D', '社区接种点A', '社区接种点B', '社区接种点C', '社区接种点D'],
+                axisTick: {
+                    alignWithLabel: true
+                },
+                axisLabel: {
+                    show: true,
+                    textStyle: {
+                        color: '#1db2f1'
+                    },
+                    // interval: 1,
+                    interval: 0,
+                    rotate: 40
+                },
+                axisLine: {
+                    lineStyle: {
+                        color: '#1db2f1',
+                        // width: 8, //这里是为了突出显示加上的
+                    }
+                }
+
+            }],
+            yAxis: [{
+                type: 'value',
+                splitLine: {
+                    show: false
+                },
+                axisLabel: {
+                    show: true,
+                    textStyle: {
+                        color: '#1db2f1'
+                    },
+
+                    formatter: '{value}(支)'
+                },
+            }],
+            series: [{
+                name: '储存数量',
+                type: 'bar',
+                barWidth: '60%',
+                itemStyle: {
+                    normal: {
+                        //每根柱子颜色设置
+                        color: function (params) {
+                            let colorList = [
+                                "#f39800",
+                                "#22ac38",
+                                "#f39800",
+                                "#22ac38",
+                                "#22ac38",
+
+                                "#e60012",
+                                "#22ac38",
+                                "#22ac38",
+                                "#e60012",
+                                "#f39800",
+                                "#f39800",
+                                "#f39800",
+                                "#f39800",
+                                "#f39800",
+                                "#f39800",
+                                "#f39800",
+                                "#f39800",
+                            ];
+                            return colorList[params.dataIndex];
+                        }
+                    }
+                },
+                barWidth: 15,
+                data: [263, 505, 202, 347, 302, 100, 204, 352, 460, 216, 153, 245, 656, 191,
+                    257, 295
+                ]
+            }]
+        };
+        // 各个疫苗储存情况_last
+        // var ym_chucun = echarts.init(document.getElementById('ym_chucun'));
+        option_ym_chucun_last = {
+            // color: ['#ec6941', '#00aaff', 'ffab4f'],
+            tooltip: {
+                trigger: 'axis',
+                axisPointer: { // 坐标轴指示器，坐标轴触发有效
+                    type: 'shadow' // 默认为直线，可选为：'line' | 'shadow'
+                }
+            },
+            grid: {
+                left: '3%',
+                right: '4%',
+                bottom: '3%',
+                containLabel: true
+            },
+            xAxis: [{
+                type: 'category',
+                data: ['乙肝', '卡介苗', '脊灰灭活', '脊灰减毒活', '百白破', '白破', '麻风', '麻腮风', '乙脑减毒活', 'A+C群流脑结合',
+                    'A+C群流脑多糖',
+                    '甲肝减毒活'
+                ],
+                axisTick: {
+                    alignWithLabel: true
+                },
+                axisLabel: {
+                    show: true,
+                    textStyle: {
+                        color: '#1db2f1'
+                    },
+                    // interval: 1,
+                    interval: 0,
+                    rotate: 40
+                },
+                axisLine: {
+                    lineStyle: {
+                        color: '#1db2f1',
+                        // width: 8, //这里是为了突出显示加上的
+                    }
+                }
+
+            }],
+            yAxis: [{
+                type: 'value',
+                splitLine: {
+                    show: false
+                },
+                axisLabel: {
+                    show: true,
+                    textStyle: {
+                        color: '#1db2f1'
+                    },
+
+                    formatter: '{value}(支)'
+                },
+            }],
+            series: [{
+                name: '储存数量',
+                type: 'bar',
+                barWidth: '60%',
+                itemStyle: {
+                    normal: {
+                        //每根柱子颜色设置
+                        color: function (params) {
+                            let colorList = [
+                                "#f39800",
+                                "#22ac38",
+                                "#f39800",
+                                "#22ac38",
+                                "#22ac38",
+                                "#e60012",
+                                "#22ac38",
+                                "#22ac38",
+                                "#22ac38",
+                                "#f39800",
+                                "#f39800",
+                                "#f39800",
+
+                                "#e60012",
+                                "#f39800",
+                                "#f39800",
+                                "#f39800",
+                                "#f39800",
+                            ];
+                            return colorList[params.dataIndex];
+                        }
+                    }
+                },
+                barWidth: 15,
+                data: [95, 150, 101, 125, 124, 60, 120, 130, 165, 96, 89, 101, 198, 92,
+                    103, 124
+                ]
+            }]
+        };
+
+        // end   YC
         // 点击节点
         function clickNode(dom) {
             // tree节点选中样式
@@ -1068,7 +1297,9 @@
                 dom.parent().toggleClass('menu_color_c')
                 // function name 
                 ym_chucun.clear()
-                ym_chucun.setOption(option_ym_chucun, true);
+                // option_ym_chucun.xAxis.data = ['医院接种点A','医院接种点B','医院接种点C','医院接种点D','社区接种点A','社区接种点B','社区接种点C','社区接种点D']
+                $("#chucun_title").text("各接种点疫苗储存情况")
+                ym_chucun.setOption(option_ym_chucun_area);
 
                 ym_jiezhong.clear()
                 ym_jiezhong.setOption(option_ym_jiezhong);
@@ -1084,11 +1315,11 @@
             // 点击接种点
             if (dom.hasClass('level3')) {
                 dom.parent().addClass('selected-node ');
-
-                // myChart.clear()
-                // myChart.setOption(option, true)
                 ym_chucun.clear()
-                ym_chucun.setOption(option_ym_chucun, true);
+                var lastChildId = $("#" + dom[0].id).parent()[0].lastChild.lastChild.id //获取到文本内容所在标签ID
+                $("#chucun_title").text($("#" + lastChildId).html() + "疫苗储存情况")
+
+                ym_chucun.setOption(option_ym_chucun_last, true);
 
                 ym_jiezhong.clear()
                 ym_jiezhong.setOption(option_ym_jiezhong);

@@ -10,6 +10,14 @@
     <script src="link/js/echarts.js"></script>
     <script src="link/js/region.js"></script>
     <script src="link/js/layer-v3.1.1/layer/layer.js"></script>
+    <script src="./link/js/shandong2.js"></script>
+    <!-- <script src="./link/js/jsMap.js"></script>
+    <script src="link/js/china.js"></script>
+    <script src="link/js/shandong_geo.js"></script>
+    <script src="link/js/jquery.reveal.js"></script>
+    <script src="link/js/jquery-1.8.2.min.js"></script>
+    <script src="link/js/echarts.min.js"></script>
+    <script src="http://www.jq22.com/js/jq.js"></script> -->
     <title>山东省疾控大数据监测控制平台</title>
     <style>
         .city_item {
@@ -21,13 +29,23 @@
         /* #content {
             display: none
         } */
-        #fff_block{width: 100%;height: 100%;position: absolute;top: 0;left: 0;background-color: #fff;z-index: 20000;}
+        #fff_block {
+            width: 100%;
+            /* height: 2000px; */
+            position: absolute;
+            top: 0;
+            left: 0;
+            background-color: #fff;
+            z-index: 20000;
+        }
     </style>
 </head>
+<div id="fff_block"></div>
 
 <body>
+
     <div id="content">
-        <div id="fff_block"></div>
+
         <div class="bg_img" style=" background: url(images/bg1.png);">
             <!-- <img src="images/bg1.png"> -->
         </div>
@@ -38,16 +56,17 @@
         <div class="content">
             <div class="left_30">
                 <div class="item_bg" id="shandong">
-                    <a href="city.html?city=潍坊市">
+                    <!-- <a href="city.html?city=潍坊市">
                         <div class="click_box"></div>
-                    </a>
+                    </a> -->
                     <div class="item_title">
                         <div class="title_text">山东省</div>
                         <div class="title_img">
                             <img src="images/title_img.png" alt="" srcset="">
                         </div>
                     </div>
-                    <img src="images/map_sd.png" class="map_sd">
+                    <div id="main" style="width: 100%;height:400px; position: relative;"></div>
+                    <!-- <img src="images/map_sd.png" class="map_sd"> -->
                     <div class="top_left">
                         <img src="images/top-left.png" alt="" srcset="">
                     </div>
@@ -126,12 +145,12 @@
                 <div class="right_60_leftbox">
                     <div class="item_bg" style="height:372px; overflow: hidden;" id="">
                         <div class="item_title">
-                            <div class="title_text">疫苗出入库情况</div>
+                            <div class="title_text">适龄儿童儿保检查完成率</div>
                             <div class="title_img">
                                 <img src="images/title_img.png" alt="" srcset="">
                             </div>
                         </div>
-                        <div class="unit">(百支)</div>
+                        <div class="unit">(人)</div>
                         <div class="next_img">
                             <img src="images/next.png" alt="">
                         </div>
@@ -318,6 +337,163 @@
         var msg = ['济南', '烟台', '潍坊', '青岛', '淄博', '枣庄', '泰安', '东营', '临沂', '济宁', '日照', '威海', '菏泽', '滨州', '德州', '聊城', ]
         msg1 = msg.reverse()
         console.log(msg1)
+
+        var myChart = echarts.init(document.getElementById('main'));
+        option = {
+            tooltip: {
+                trigger: 'none'
+            },
+            legend: {
+                orient: 'vertical',
+                x: 'left',
+                data: []
+            },
+            // toolbox: {
+            //     show: true,
+            //     orient: 'vertical',
+            //     x: 'right',
+            //     y: 'center',
+            //     feature: {
+            //         saveAsImage: {
+            //             show: true
+            //         }
+            //     }
+            // },
+            series: [{
+                name: 'cd',
+                type: 'map',
+                mapType: 'CD',
+                roam: false,
+                label: {
+                    normal: {
+                        show: true,
+                        textStyle: {
+
+                            color: '#fff'
+                        }
+                    },
+                    emphasis: {
+                        // show: true,
+                    }
+                },
+
+                itemStyle: {
+                    normal: {
+                        borderColor: 'rgba(147, 235, 248, 1)',
+                        borderWidth: 1,
+                        areaColor: {
+                            type: 'radial',
+                            x: 0.5,
+                            y: 0.5,
+                            r: 0.8,
+                            colorStops: [{
+                                offset: 0,
+                                color: 'rgba(147, 235, 248, 0)' // 0% 处的颜色
+                            }, {
+                                offset: 1,
+                                color: 'rgba(147, 235, 248, .30)' // 100% 处的颜色
+                            }],
+                            globalCoord: false // 缺省为 false
+                        },
+                        shadowColor: 'rgba(128, 217, 248, 1)',
+                        // shadowColor: 'rgba(255, 255, 255, 1)',
+                        shadowOffsetX: -2,
+                        shadowOffsetY: 2,
+                        shadowBlur: 10
+                    },
+                    emphasis: {
+                        areaColor: '#389BB7',
+                        borderWidth: 0
+                    }
+                },
+                showLegendSymbol: true,
+                data: [],
+            }]
+        };
+
+        var cityArr = [{
+            "id": 3701,
+            "pId": 37,
+            "name": "济南市"
+        }, {
+            "id": 3702,
+            "pId": 37,
+            "name": "青岛市"
+        }, {
+            "id": 3703,
+            "pId": 37,
+            "name": "淄博市"
+        }, {
+            "id": 3704,
+            "pId": 37,
+            "name": "枣庄市"
+        }, {
+            "id": 3705,
+            "pId": 37,
+            "name": "东营市"
+        }, {
+            "id": 3706,
+            "pId": 37,
+            "name": "烟台市"
+        }, {
+            "id": 3707,
+            "pId": 37,
+            "name": "潍坊市"
+        }, {
+            "id": 3708,
+            "pId": 37,
+            "name": "济宁市"
+        }, {
+            "id": 3709,
+            "pId": 37,
+            "name": "泰安市"
+        }, {
+            "id": 3710,
+            "pId": 37,
+            "name": "威海市"
+        }, {
+            "id": 3711,
+            "pId": 37,
+            "name": "日照市"
+        }, {
+            "id": 3713,
+            "pId": 37,
+            "name": "临沂市"
+        }, {
+            "id": 3714,
+            "pId": 37,
+            "name": "德州市"
+        }, {
+            "id": 3715,
+            "pId": 37,
+            "name": "聊城市"
+        }, {
+            "id": 3716,
+            "pId": 37,
+            "name": "滨州市"
+        }, {
+            "id": 3717,
+            "pId": 37,
+            "name": "菏泽市"
+        }]
+        echarts.registerMap('CD', chinaJson);
+        myChart.setOption(option);
+        myChart.on('click', function (params) {
+            var cityId = getCityId(params.name, cityArr)
+            window.location.href = 'city.html?region_id=' + cityId + '&city=' + params.name
+            console.log(cityId)
+        });
+        var getCityId = function (name, arr) {
+            var cityId = null
+            for (var i = 0; i < arr.length; i++) {
+                if (arr[i].name === name) {
+                    cityId = arr[i].id
+                    break;
+                }
+            }
+            return cityId
+        }
+        // console.log(myJSON)
         // 基于准备好的dom，初始化echarts实例
         var myChart1 = echarts.init(document.getElementById('ym_churuku_1'));
 
@@ -335,7 +511,7 @@
                 }
             },
             legend: {
-                data: ['进', '出'],
+                data: ['注册适龄儿童数量', '已完成儿保检查数量'],
                 textStyle: {
                     color: '#ffffff' //字体颜色
                 },
@@ -382,9 +558,9 @@
 
             },
             series: [{
-                    name: '进',
+                    name: '注册适龄儿童数量',
                     type: 'bar',
-                    data: [50, 60, 80, 99, 62, 60, 80, 99, 62, ],
+                    data: [3598, 3326, 2903, 2865, 3254, 3321, 2987, 3548, ],
                     // barWidth: 14,
                     itemStyle: {
                         emphasis: {
@@ -410,9 +586,9 @@
                     }
                 },
                 {
-                    name: '出',
+                    name: '已完成儿保检查数量',
                     type: 'bar',
-                    data: [56, 77, 60, 32, 56, 77, 60, 23],
+                    data: [3499, 3301, 2854, 2754, 3201, 3309, 2765, 3451],
                     itemStyle: {
                         emphasis: {
                             barBorderRadius: 7
@@ -459,7 +635,7 @@
                 }
             },
             legend: {
-                data: ['进', '出'],
+                data: ['注册适龄儿童数量', '已完成儿保检查数量'],
                 textStyle: {
 
                     color: '#ffffff' //字体颜色
@@ -502,9 +678,9 @@
                 }
             },
             series: [{
-                    name: '进',
+                    name: '注册适龄儿童数量',
                     type: 'bar',
-                    data: [69, 99, 50, 60, 80, 99, 62, 80, ],
+                    data: [3698, 3226, 3356, 3469, 2965, 3026, 3651, 3095, ],
                     itemStyle: {
                         emphasis: {
                             barBorderRadius: 7
@@ -531,9 +707,9 @@
 
                 },
                 {
-                    name: '出',
+                    name: '已完成儿保检查数量',
                     type: 'bar',
-                    data: [32, 45, 56, 77, 60, 32, 32, 60],
+                    data: [3599, 3201, 3320, 3450, 2845, 2999, 3601, 3032],
                     itemStyle: {
                         emphasis: {
                             barBorderRadius: 7
@@ -564,9 +740,13 @@
         $(document).ready(function () { //分页显示
             layer.msg("加载中", {
                 icon: 16,
-                time:500,
-                end:function(){
-                    $("#fff_block").slideUp(500)
+                time: 500,
+                end: function () {
+                    $("#fff_block").slideUp(500);
+                    layer.tips('点击可以翻页', '.next_img', {
+                        tips: [1, '#fa7116']
+                        // tips: [1, '#78BA32']
+                    });
                 }
             })
             var isMac = function () {
@@ -612,7 +792,9 @@
                     show: true,
                     textStyle: {
                         color: '#1db2f1'
-                    }
+                    },
+                    interval: 0,
+                    rotate: 40
                 },
                 axisLine: {
                     lineStyle: {
@@ -711,7 +893,9 @@
                     show: true,
                     textStyle: {
                         color: '#1db2f1'
-                    }
+                    },
+                    interval: 0,
+                    rotate: 40
                 },
                 axisLine: {
                     lineStyle: {
@@ -791,21 +975,70 @@
                 shadeClose: true,
                 skin: 'yourclass',
                 content: `<div id="layer_box">
+                        <div class="layer_item">
+            <div class="layer_item_title">
+                <label class="switch" id="switch">
+                    <input type="checkbox" >
+                    <div class="slider round"></div>
+                </label>
+            </div>
+            <div class="layer_item_content">是否开启一键锁定</div>
+        </div>
         <div class="layer_item">
             <div class="layer_item_title">地址</div>
-            <div class="layer_item_content">山东省` + adderss + `xx社区接种点</div>
+            <div class="layer_item_content">` + adderss + `xx社区接种点</div>
         </div>
         <div class="layer_item">
             <div class="layer_item_title">疫苗种类</div>
-            <div class="layer_item_content">` + msg + `疫苗</div>
+            <div class="layer_item_content">` + msg + `</div>
         </div>
         <div class="layer_item">
-            <div class="layer_item_title">预留信息</div>
-            <div class="layer_item_content">Lorem ipsum dolor, sit . </div>
+            <div class="layer_item_title">情况报告</div>
+            <div class="layer_item_content">疫苗过期，活性失效</div>
         </div>
-        </div>`,
+        <div class="layer_item">
+            <div class="layer_item_title">报告人</div>
+            <div class="layer_item_content"> 王富贵</div>
+        </div>
+        <div class="layer_item">
+            <div class="layer_item_title">联系电话</div>
+            <div class="layer_item_content"> 15080808080</div>
+        </div>
+        <div class="layer_item">
+            <div class="layer_item_title">上级负责人</div>
+            <div class="layer_item_content"> 王一川</div>
+        </div>
+        <div class="layer_item">
+            <div class="layer_item_title">联系电话</div>
+            <div class="layer_item_content"> 15092999999</div>
+        </div>
+        <div class="layer_item">
+            <div class="layer_item_title">处理情况</div>
+            <div class="layer_item_content"> 已记录并销毁疫苗</div>
+        </div>
+    </div>`,
             })
         })
+
+
+        $(document).on("click", "#switch > .slider", function () {
+            var flag = $("#switch > input").is(":checked");
+            console.log(flag)
+            if (!flag) {
+                layer.msg("一键锁定已开启", {
+                    icon: 1,
+                    time: 1500,
+                    end: function () {}
+                })
+            } else {
+                layer.msg("一键锁定已关闭", {
+                    icon: 2,
+                    time: 1500,
+                    end: function () {}
+                })
+            }
+
+        });
 
         // 冰箱温度警告
         $(".temp_warning").click(function (e) {
@@ -834,8 +1067,16 @@
             <div class="layer_item_content">` + msg + `</div>
         </div>
         <div class="layer_item">
-            <div class="layer_item_title">预留信息</div>
-            <div class="layer_item_content">Lorem ipsum dolor, sit . </div>
+            <div class="layer_item_title">负责人信息</div>
+            <div class="layer_item_content">王富贵,15008060301,` + adderss + `xx社区接种点</div>
+        </div>
+        <div class="layer_item">
+            <div class="layer_item_title">情况描述</div>
+            <div class="layer_item_content">冰箱温度报警，温度达到` + msg + `</div>
+        </div>
+        <div class="layer_item">
+            <div class="layer_item_title">处理反馈</div>
+            <div class="layer_item_content">已处理完毕</div>
         </div>
         </div>`,
             })
@@ -851,6 +1092,15 @@
     </script>
     <!-- <div id="layer_box">
         <div class="layer_item">
+            <div class="layer_item_title">
+                <label class="switch">
+                    <input type="checkbox" checked>
+                    <div class="slider round"></div>
+                </label>
+            </div>
+            <div class="layer_item_content">是否开启一键锁定</div>
+        </div>
+        <div class="layer_item">
             <div class="layer_item_title">地址</div>
             <div class="layer_item_content">山东省济南市历下区xx社区接种点</div>
         </div>
@@ -859,8 +1109,29 @@
             <div class="layer_item_content">xxx疫苗</div>
         </div>
         <div class="layer_item">
-            <div class="layer_item_title">预留信息</div>
-            <div class="layer_item_content">Lorem ipsum dolor, sit amet consectetur adipisicing elit. </div>
+            <div class="layer_item_title">情况报告</div>
+            <div class="layer_item_content">Lorem ipsum dolor, sit. </div>
+        </div>
+        <div class="layer_item">
+            <div class="layer_item_title">报告人</div>
+            <div class="layer_item_content"> 王富贵</div>
+        </div>
+        <div class="layer_item">
+            <div class="layer_item_title">联系电话</div>
+            <div class="layer_item_content"> 15080808080</div>
+        </div>
+        <div class="layer_item">
+            <div class="layer_item_title">上级负责人</div>
+            <div class="layer_item_content"> 15080808080</div>
+        </div>
+        <div class="layer_item">
+            <div class="layer_item_title">联系电话</div>
+            <div class="layer_item_content"> 1509999999</div>
+        </div>
+        <div class="layer_item">
+            <div class="layer_item_title">处理意见</div>
+            <div class="layer_item_content"> Lorem ipsum dolor sit, amet consectetur adipisicing elit. Totam similique
+                sit nisi pariatur t.</div>
         </div>
     </div> -->
 </body>

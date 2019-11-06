@@ -4,7 +4,8 @@
 <head>
     <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>Hello, World</title>
+    <link rel="Shortcut Icon" href="images/html_icon1.ico" type="image/x-icon" />
+    <title>接种点分布</title>
     <style type="text/css">
         html {
             height: 100%
@@ -26,6 +27,9 @@
     <script type="text/javascript" src="http://api.map.baidu.com/api?v=3.0&ak=GzssO2yAs8QRdS6dvIuyLo9k0TPKfNzh">
         //v3.0版本的引用方式：src="http://api.map.baidu.com/api?v=3.0&ak=您的密钥"
     </script>
+    <script src="link/js/city_w_j.js"></script>
+    <script src="link/js/jquery.js"></script>
+    <script src="link/js/layer-v3.1.1/layer/layer.js"></script>
 </head>
 
 <body>
@@ -42,30 +46,78 @@
         map.addControl(new BMap.ScaleControl());
         map.addControl(new BMap.OverviewMapControl());
 
-        // 编写自定义函数,创建标注
-        function addMarker(point) {
-            var marker = new BMap.Marker(point);
-            map.addOverlay(marker);
-        }
 
-        var bounds = map.getBounds();
-        var sw = bounds.getSouthWest();
-        var ne = bounds.getNorthEast();
-        var lngSpan = Math.abs(sw.lng - ne.lng);
-        var latSpan = Math.abs(ne.lat - sw.lat);
-        for (var i = 0; i < 25; i++) {
-            var point = new BMap.Point(sw.lng + lngSpan * (Math.random() * 0.7), ne.lat - latSpan * (Math.random() *
-                0.7));
-            addMarker(point);
+        function addMapOverlay() {
+            console.log(injPlaceArr)
+            for (var index = 0; index < injPlaceArr.length; index++) {
+                console.log(index)
+                var point = new BMap.Point(injPlaceArr[index].j, injPlaceArr[index].w);
+                var marker = new BMap.Marker(point);
+                console.log(marker)
+                //  var label = new BMap.Label(markers[index].title,{offset: new BMap.Size(25,5)});
+                // var opts = {
+                //  width: 200,
+                //   title: markers[index].title,
+                //    enableMessage: false
+                //   };
+                // var infoWindow = new BMap.InfoWindow(markers[index].content,opts);
+                // marker.setLabel(label);//显示地理名称
+                marker.setLabel(); //不显示地理名称      
+                // addClickHandler(marker,infoWindow);
+                map.addOverlay(marker);
+            };
+
+        }
+        $(document).ready(function () {
+            addMapOverlay()
+        })
+        // // 编写自定义函数,创建标注
+        // function addMarker(point) {
+        //     var marker = new BMap.Marker(point);
+        //     map.addOverlay(marker);
+        // }
+
+        // var bounds = map.getBounds();
+        // var sw = bounds.getSouthWest();
+        // var ne = bounds.getNorthEast();
+        // var lngSpan = Math.abs(sw.lng - ne.lng);
+        // var latSpan = Math.abs(ne.lat - sw.lat);
+        // for (var i = 0; i < 25; i++) {
+        //     var point = new BMap.Point(sw.lng + lngSpan * (Math.random() * 0.7), ne.lat - latSpan * (Math.random() *
+        //         0.7));
+        //     addMarker(point);
+        // }
+        // marker.addEventListener("click", function (e) {
+        //     console.log(11)
+        //     console.log(e)
+        // })
+        var getCityId = function (name, arr) {
+            var cityId = null
+            for (var i = 0; i < arr.length; i++) {
+                if (arr[i].name === name) {
+                    cityId = arr[i].id
+                    break;
+                }
+            }
+            return cityId
         }
         map.addEventListener("click", function (e) {
+
             var geocoder = new BMap.Geocoder();
             var point = new BMap.Point(e.point.lng, e.point.lat);
             geocoder.getLocation(point, function (geocoderResult, LocationOptions) {
-                //alert(geocoderResult.address);
-                console.log(geocoderResult.address);
+                // console.log(geocoderResult.address);
+                // console.log(geocoderResult.address.slice(0, 3))
+                if (geocoderResult.address.slice(0, 3) !== "山东省") {
+                    layer.msg("请点击地图标记点", {
+                        icon: 2
+                    })
+                } else {
+                    var city = geocoderResult.address.slice(3, 6)
+                    var cityId = getCityId(city,cityArr)
+                    window.location.href = 'city.html?region_id=' + cityId + '&city=' + city
+                }
             });
-            console.log(e)
         });
     </script>
 </body>
